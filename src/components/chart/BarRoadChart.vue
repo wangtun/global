@@ -1,13 +1,13 @@
 <template>
   <div class="chart-content">
-    <div style='display:flex;text-align:center'>
-      <div style='flex:1'>
+    <div style='display:flex;'>
+      <div style='flex:1;padding-left:18px;'>
         <div>道路更新累积值</div>
         <div>道路新增累积值</div>
       </div>
-      <div style='flex:1; text-align:right;padding-right:20px'>
-        <div>{{roadData.cUpdateRoad | splitSymbol}}公里</div>
-        <div>{{roadData.cAddRoad | splitSymbol}}公里</div>
+      <div style='flex:1; text-align:left;'>
+        <div><span class='numberText'>{{roadData.cUpdateRoad | splitSymbol}}</span> 公里</div>
+        <div><span class='numberText'>{{roadData.cAddRoad | splitSymbol}}</span> 公里</div>
       </div>
     </div>
     <div id='myBarRoadChart'>
@@ -30,7 +30,7 @@ export default {
   },
   filters: {
     splitSymbol: function (value){ // 将数字三位隔开
-      return parseInt(value).toLocaleString();
+      return parseFloat(value).toLocaleString();
     }
   },
   methods: {
@@ -60,7 +60,7 @@ export default {
         this.chart.setOption({
             backgroundColor: 'rgba(128, 128, 128, 0)',
             grid: {
-              left: 70,
+              left: 50,
               right: 20,
               top: 10,
               bottom:30
@@ -84,10 +84,18 @@ export default {
                 axisLabel: {
                   fontSize: 12,
                   color: '#DDDDDD',
+                  formatter: function (value, index) {
+                    let val = value / 10000;
+                    if (val == 0) {
+                      return val;
+                    }
+                    return value / 10000 + 'W';
+                  }
                 },
                 splitLine: {
                   show:false
                 },
+                splitNumber: 4
             },
             calculable: true,
             series: [{    // For shadow
@@ -107,7 +115,7 @@ export default {
               stack: '总和',
               itemStyle: {
                 normal: {
-                  color: '#3333FF',
+                  color: '#FD8E20',
                   barBorderRadius:[5, 5, 0, 0]
                 }
               },
@@ -152,5 +160,8 @@ export default {
 #myBarRoadChart {
     width: 400px;
     height: 140px;
+}
+.numberText{
+  color: #FD8E20;
 }
 </style>

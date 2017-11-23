@@ -1,7 +1,8 @@
 <template>
-  <div class="datetime" @click="getDateTime()">
-    <div class="time">{{time}}</div>
-    <div class="date">{{date}}</div>
+  <div class="banner">
+    <div class="datetime">Date:{{date}}</div>    
+    <img src="../assets/ziti.png">
+    <div class="datetime">Time:{{time}}</div>
   </div>
 </template>
 
@@ -18,6 +19,7 @@ function lpad(str, len, char) {
 
 export default {
   name: 'banner',
+  props: ['flag'],
   data() {
     return {
       date: '',
@@ -50,24 +52,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.datetime {
+.banner {
   display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  padding: 0px 15px;
-  color: #fff;
+  justify-content: space-between;  
 }
 
-.datetime>div {
-  padding: 5px;
-  text-align: right;
-}
-
-.datetime>.date {
-  font-size: 24px;
-}
-
-.datetime>.time {
-  font-size: 32px;
+.datetime {
+  font-size: 21px;
+  color: #47a2ff;
+  text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
 }
 </style>
